@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Health quiz</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+    <link href="css/quiz.css?v=0" rel="stylesheet">
+</head>
+<body>
+    <div class="quiz-container">
+        <!--Quiz start-->
+        <div class="quiz--container start quiz--start">
+            <header class="site-header">
+                <div class="site-header--logo">
+                    <img src="img/vivacity-logo.svg" alt="Vivacity">
+                    care center
+                </div>
+            </header>
+            <div class="content-container">
+                <h1 class="quiz--start-headline"><span>Vivacity Care Center</span>Lifestyle Quiz</h1>
+                <p class="quiz--start-text">Did you know that many of your personality traits play a significant role in your health choices? After taking the Lifestyle Quiz provided by Vivacity Care Center, your answers will direct you to fun local resources and health information such as regional nature hikes, healthy local restaurant options, spotlights on local primary care providers, and much more.</p>
+                <div class="quiz--start-button button" onclick="showPage(2); setupQuestion();">Begin the quiz</div>
+            </div>
+        </div>
+
+        <!--Quiz result-->
+        <div class="quiz--container quiz--result hidden">
+            <header class="site-header">
+                <div class="site-header--logo">
+                    <img src="img/vivacity-logo.svg" alt="Vivacity">
+                    care center
+                </div>
+            </header>
+            <div class="content-container">
+                <div class="quiz--result-header">
+                    <img class="quiz--result-header-cloud" id="personality-cloud" src="img/cloud.svg" alt="">
+                    <div class="quiz--result-header-character" id="personality-character">
+                        <img class="quiz--result-header-character-image" id="personality-character-image" src="img/cloud.svg" alt="">
+                    </div>
+                    <div class="quiz--result-header-content">
+                        <div class="quiz--result-header-subheadline" id="personality-part-1"></div>
+                        <h1 class="quiz--result-header-headline" id="personality-type"></h1>
+                        <p class="quiz--result-header-text" id="personality-part-2"></p>
+                    </div>
+                </div>
+                <div class="quiz--result-articles">
+                    <p id="personality-part-3"></p>
+                </div>
+                <div class="quiz--result-cta" onclick="showPage(2); setupQuestion(); clearcontent(); resetscore()">Take the quiz again</div>
+                <div class="social-link">
+                    <a class="social-link-logo" href="#0" target="_blank">
+                        <img src="img/logo-IN.svg" alt="LinkedIn">
+                    </a>
+                    <a class="social-link-logo" href="#0" target="_blank">
+                        <img src="img/logo-FB.svg" alt="Facebook">
+                    </a>
+                    <a class="social-link-logo" href="#0" target="_blank">
+                        <img src="img/logo-IG.svg" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+            <div class="quiz--result-links">
+                <a class="cta cta-white" href="../appointments.html">Make an appointment</a>
+                <a class="quiz--result-link thePopup" onclick="javascript:showPopup()" href="#" return false;>Check your coverage</a>
+                <div class="popup-container">
+                    <div id="popup-content" class="popup-content">
+                        <h3>CHECK YOUR COVERAGE</h3>
+                        <p>Vivacity Care Center is an in-network provider for people who have Premera Blue Cross, Premera Blue Cross Medicare Advantage or LifeWise Health Plan of Washington as their primary insurance, as well as BlueCard holders. Vivacity Care Center is an independent, physician-owned practice.</p>
+                        <a href="#0" target="_blank">Premera Blue Cross</a>
+                        <a href="#0" target="_blank">Premera Blue Cross Medicare Advantage</a>
+                        <a href="#0" target="_blank">Lifewise Health Plan of Washington</a>
+                    </div>
+                </div>
+            </div>
+            <!-- #include virtual="../../resources/footer.html" -->
+        </div>
+
+        <!--Quiz questions-->
+        <div class="quiz--container quiz--questions hidden">
+            <header class="site-header">
+                <div class="site-header--logo">
+                    <img src="img/vivacity-logo.svg" alt="Vivacity">
+                    care center
+                </div>
+            </header>
+            <div class="content-container">
+                <div class="quiz--questions-image" id="image"></div>
+                <h2 class="quiz--questions-question" id="question"></h2>
+                <div class="option" id="option0" onclick="select(this)">
+                    <input type="radio" name="answer" value="0" onchange="next()">
+                    <div class="option--content">
+                    </div>
+                </div>
+                <div class="option" id="option1" onclick="select(this)">
+                    <input type="radio" name="answer" value="1" onchange="next()">
+                    <div class="option--content">
+                    </div>
+                </div>
+                <div class="option" id="option2" onclick="select(this)">
+                    <input type="radio" name="answer" value="2" onchange="next()">
+                    <div class="option--content">
+                    </div>
+                </div>
+                <div class="option" id="option3" onclick="select(this)">
+                    <input type="radio" name="answer" value="3" onchange="next()">
+                    <div class="option--content">
+                    </div>
+                </div>
+                <div class="progress-bar--items">
+                    <div class="progress-bar--item progress-bar--item-active"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                    <div class="progress-bar--item"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script id="template-homebody" type="text/template">
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Behavioral Health</div>
+                        <h2 class="quiz--result-articles-title">How to use simple mindfulness exercises to support well-being</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Lyfestyle Support</div>
+                        <h2 class="quiz--result-articles-title">Vivacity Care Center Podcast</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </script>
+    <script id="template-adventurer" type="text/template">
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Behavioral Health</div>
+                        <h2 class="quiz--result-articles-title">How to use simple mindfulness exercises to support well-being</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Lyfestyle Support</div>
+                        <h2 class="quiz--result-articles-title">Vivacity Care Center Podcast</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </script>
+    <script id="template-sophisticate" type="text/template">
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Behavioral Health</div>
+                        <h2 class="quiz--result-articles-title">How to use simple mindfulness exercises to support well-being</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Lyfestyle Support</div>
+                        <h2 class="quiz--result-articles-title">Vivacity Care Center Podcast</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </script>
+    <script id="template-catherder" type="text/template">
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Behavioral Health</div>
+                        <h2 class="quiz--result-articles-title">How to use simple mindfulness exercises to support well-being</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Lyfestyle Support</div>
+                        <h2 class="quiz--result-articles-title">Vivacity Care Center Podcast</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <a href="#0" class="quiz--result-articles-item">
+                    <div class="quiz--result-articles-image" style="background-image: url('http://fpoimg.com/710x440?bg_color=C7C7C7&text_color=C7C7C7')"></div>
+                    <div class="quiz--result-articles-text">
+                        <div class="quiz--result-articles-category">Physical Health</div>
+                        <h2 class="quiz--result-articles-title">How Does Sleep Impact Our Health?</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </script>
+
+    <script src='script/app.js'></script>
+    <script>
+        // When the user clicks on the button,
+        // toggle between hiding and showing the dropdown content
+
+
+    </script>
+</body>
+</html>
